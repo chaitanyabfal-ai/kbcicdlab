@@ -1,0 +1,41 @@
+replicaCount: 2
+
+image:
+  repository: ghcr.io/chaitanyabfal-ai/kbcicdlab
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  port: 80
+  nodePort: 30080
+
+config:
+  appName: kbcicdlab
+  appMessage: Hello from the kbcicdlab Helm chart
+  port: "8080"
+
+secret:
+  dbPassword: changeme
+
+probes:
+  liveness:
+    path: /healthz
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    timeoutSeconds: 3
+    failureThreshold: 3
+  readiness:
+    path: /readyz
+    initialDelaySeconds: 3
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 3
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 128Mi

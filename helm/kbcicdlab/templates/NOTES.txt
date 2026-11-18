@@ -1,0 +1,18 @@
+Thank you for installing {{ .Chart.Name }} (release {{ .Release.Name }}).
+
+1. Check the rollout:
+   kubectl rollout status deployment/{{ include "kbcicdlab.fullname" . }} -n {{ .Release.Namespace }}
+
+2. Get the application URL:
+{{- if eq .Values.service.type "NodePort" }}
+   minikube service {{ include "kbcicdlab.fullname" . }} -n {{ .Release.Namespace }} --url
+{{- else if eq .Values.service.type "LoadBalancer" }}
+   kubectl get svc {{ include "kbcicdlab.fullname" . }} -n {{ .Release.Namespace }} -o wide
+{{- else }}
+   kubectl port-forward svc/{{ include "kbcicdlab.fullname" . }} 8080:{{ .Values.service.port }} -n {{ .Release.Namespace }}
+   curl http://127.0.0.1:8080/
+{{- end }}
+
+3. Smoke test the probes:
+   curl <url>/healthz
+   curl <url>/readyz

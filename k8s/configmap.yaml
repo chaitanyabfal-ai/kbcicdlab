@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kbcicdlab-config
+  namespace: kbcicdlab
+  labels:
+    app.kubernetes.io/name: kbcicdlab
+data:
+  APP_NAME: kbcicdlab
+  APP_MESSAGE: Hello from the kbcicdlab ConfigMap
+  PORT: "8080"

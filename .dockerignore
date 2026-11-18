@@ -1,0 +1,14 @@
+.git
+.github
+__pycache__
+*.pyc
+*.pyo
+app/test_main.py
+k8s
+helm
+Makefile
+README.md
+.dockerignore
+Dockerfile
+.env
+*.local
